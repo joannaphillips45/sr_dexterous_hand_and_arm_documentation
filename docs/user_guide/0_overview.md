@@ -1,4 +1,3 @@
-# Overview
 ## First time users
 If you are unfamiliar with ROS and intend to use the ROS API, it is highly recommended that you read the [ROS Tutorials](http://www.ros.org/wiki/ROS/Tutorials).
 

@@ -1,7 +1,7 @@
 # Setting up the arm
 
 1. Unpack the robot arm and the control box.
-2. Mount the arm on the table. If you have a demo table, the cable socket should point roughly towards the wire hole in the table. Place the base of the robot onto the mounting plate and add screws from the top. 
+2. Mount the arm on the table. If you have a Shadow Stand or Table, the cable socket should point roughly towards the wire hole in the table. Place the base of the robot onto the mounting plate and add screws from the top. 
    ```eval_rst
    .. image:: ../img/ur_position_on_table.png
    ```

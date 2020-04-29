@@ -1,6 +1,12 @@
 # Shadow Dexterous Hand and Arm Documentation
 
-This is the starting point for the Shadow Robot documentation of Dexterous Hand mounted on the Universal Robot Arms (UR10 or UR5).
+This documentation describes the setup of a Shadow Dexterous Hand attached to a UR arm (UR5 or UR10).
+
+```eval_rst
+.. image:: ../img/UR10_hand_E.jpeg
+  :width: 600
+  :align: left
+```
 
 ```eval_rst
 .. toctree::
@@ -13,7 +19,6 @@ This is the starting point for the Shadow Robot documentation of Dexterous Hand 
    :maxdepth: 2
    :caption: Setting up the system
    
-   user_guide/1_0_arm_and_hand
    user_guide/1_0_setting_up_real_system
    user_guide/1_5_setting_up_simulation
    

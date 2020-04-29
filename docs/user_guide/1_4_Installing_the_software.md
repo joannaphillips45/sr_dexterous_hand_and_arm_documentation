@@ -1,6 +1,6 @@
 # Installing the software
 
-We have created a one-liner that is able to install Docker, download the image and create a new container for you. It will also create two desktop icons, one to start the container and launch the hand and another one to save the log files locally. To use it, you first need to have a PC with Ubuntu installed on it (preferable version 16.04) then follow these steps:
+We have created a one-liner that is able to install Docker, download the image and create a new container for you. It will also create two desktop icons, one to start the container and launch the hand and another one to save the log files locally. To use it, you first need to have a PC with Ubuntu installed on it (version 18.04) then follow these steps:
 
 ## Check your hand interface ID
 
@@ -28,7 +28,7 @@ After executing the one-liner, it will prompt you to enter your upload key and p
 You should have the name of your [sr_config](https://github.com/shadow-robot/sr-config) hand branch which contains the specific configuration of your hand (calibration, controller tuning etc…).
 Usually it is something like this: ``shadowrobot_XXXXXX``. Where XXXXXX are the 6 digits contained in the serial number of the hand labelled underneath the robot base.
 
-If you are unsure please contact us.
+If you are unsure please contact us at support@shadowrobot.com.
 
 ## Run the one-liner
 
