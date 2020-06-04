@@ -1,5 +1,5 @@
 # sr_dexterous_hand_and_arm_documentation
 
-Documentation of Shadow Dexterous Hand mounted on the Universal Robot's Arms.
+This repository contains documentation about the Shadow Dexterous Hand mounted on one UR arms
 
-It can be found in Readthedocs here: 
+This is the link to the readthedocs version: https://sr-dexterous-hand-arm.readthedocs.io/en/latest/
