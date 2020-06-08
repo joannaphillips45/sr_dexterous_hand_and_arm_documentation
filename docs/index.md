@@ -36,6 +36,6 @@ This documentation describes the setup of a Shadow Dexterous Hand attached to a 
    :caption: FAQ & CHANGELOG
    
    user_guide/3_1_FAQ
-   user_guide/3_2_Changelog
+   user_guide/3_2_changelog
 
 ```
