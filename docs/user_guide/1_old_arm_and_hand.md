@@ -1,6 +1,6 @@
 # UR Arm and Dexterous Hand 
 
-This documentation describes the setup of a Shadow Dexterous Hand attached to a UR arm (UR5 or UR10).
+This documentation describes the setup of a Shadow Dexterous Hand attached to a UR arm (UR5, UR5e, UR10 or UR10e).
 
 ```eval_rst
 .. image:: ../img/UR10_hand_E.jpeg
@@ -145,7 +145,7 @@ roslaunch sr_workspace_calibrator calibration_tf.launch [calibration_frame:=FRAM
 
 As before, for single marker setups, FRAME_NAME can be omitted and the default ra_calibration_marker will be used. The launch command can of course also be included in other launch files.
 
-#### UR10 supporting firmware
+#### UR supporting firmware
 
 In the following table, you can find the firmware version of the Universal Robot software and see if it has been tested with our software:
 
@@ -247,7 +247,7 @@ see all joints of the hand move slightly on power up or reset or power up.
 
 ### Installing the software
 
-We have created a one-liner that is able to install Docker, download the image and create a new container for you. It will also create two desktop icons, one to start the container and launch the hand and another one to save the log files locally. To use it, you first need to have a PC with Ubuntu installed on it (preferable version 16.04) then follow these steps:
+We have created a one-liner that is able to install Docker, download the image and create a new container for you. It will also create two desktop icons, one to start the container and launch the hand and another one to save the log files locally. To use it, you first need to have a PC with Ubuntu installed on it (preferable version 18.04) then follow these steps:
 
 * **Check your hand interface ID**:
 
@@ -277,40 +277,66 @@ We have created a one-liner that is able to install Docker, download the image a
 
 * **Run the one-liner**:
 
-  The one-liner will install Docker, pull the image from Docker Hub, and create and run a container with the parameters specified. In order to use it, use the following command:
+  The one-liner will install Docker, pull the image from Docker Hub, and create and run a container with the parameters specified.
+  
+  Running the one-liner requires that you can access bit.ly and raw.githubusercontent.com with your internet connection (bit.ly/run-aurora resolves to https://raw.githubusercontent.com/shadow-robot/aurora/master/bin/run-ansible.sh). If either of those is unreachable in your country, try using a VPN.
+  
+  In order to use it, use the following command:
 
   **Please remember to replace [EtherCAT interface ID] with your Interface ID and [sr_config_branch] with your unique sr_config branch**
 
-  ROS Kinetic (Recommended):
-  ```bash
-  $ bash <(curl -Ls bit.ly/run-aurora) docker_deploy product=hand_e ethercat_interface=[EtherCAT interface ID] config_branch=[sr_config_branch]
-  ```
-  Examples:
-  For Interface ID ```ens0s25``` and sr_config_branch ```shadow_12345```
-  ```bash
-  $ bash <(curl -Ls bit.ly/run-aurora) docker_deploy product=hand_e ethercat_interface=ens0s25 config_branch=shadow_12345
-  ```  
-  Same as above but with ROS logs upload enabled
-  ```bash
-  $ bash <(curl -Ls bit.ly/run-aurora) docker_deploy product=hand_e ethercat_interface=ens0s25 config_branch=shadow_12345 use_aws=true
-  ```  
-  
-  If you have an Nvidia graphics card, you can add nvidia_docker to set the nvidia-docker version. Use ``nvidia_docker=1`` or ``nvidia_docker=2`` for version 1.0 or 2.0 respectively.
+  ROS Melodic (Recommended) for right hand and arm:
 
-  You can also add reinstall=true true in case you want to reinstall the docker image and container. When it finishes it will show if it was successful or not
-  and it will create five desktop icons on your desktop that you can double-click to launch the hand container, save the log files from the active containers to your desktop and perform various actions on the hand (open, close and demo).
+```eval_rst
+.. prompt:: bash $
+
+    bash <(curl -Ls bit.ly/run-aurora) server_and_nuc_deploy product=hand_e ethercat_interface=[EtherCAT interface ID] config_branch=[sr_config_branch] reinstall=true upgrade_check=true tag=melodic-release ethercat_right_arm=[NUC right arm ethernet interface ID] arm_ip_right="192.168.1.1" ur_robot_type=ur10e hand_side=right
+```
+
+ROS Melodic (Recommended) for left hand and arm:
+
+```eval_rst
+.. prompt:: bash $
+
+    bash <(curl -Ls bit.ly/run-aurora) server_and_nuc_deploy product=hand_e ethercat_left_hand=[EtherCAT interface ID] config_branch=[sr_config_branch] reinstall=true upgrade_check=true tag=melodic-release ethercat_left_arm=[NUC left arm ethernet interface ID] arm_ip_left="192.168.2.1" ur_robot_type=ur10e hand_side=left
+```
+
+ROS Melodic (Recommended) for both left and right arms and hands:
+
+```eval_rst
+.. prompt:: bash $
+
+    bash <(curl -Ls bit.ly/run-aurora) server_and_nuc_deploy product=hand_e ethercat_interface=[EtherCAT right hand interface ID] ethercat_left_hand=[EtherCAT left hand interface ID] config_branch=[sr_config_branch] reinstall=true upgrade_check=true tag=melodic-release ethercat_right_arm=[NUC right arm ethernet interface ID] ethercat_left_arm=[NUC left arm ethernet interface ID] arm_ip_right="192.168.1.1" arm_ip_left="192.168.2.1" ur_robot_type=ur10e bimanual=true
+```
+
+Examples:
+For Interface ID ```ens0s25``` and sr_config_branch ```shadow_12345``` for right arm and hand:
+
+```eval_rst
+.. prompt:: bash $
+
+    bash <(curl -Ls bit.ly/run-aurora) server_and_nuc_deploy product=hand_e ethercat_interface=ens0s25 config_branch=shadow_12345 reinstall=true upgrade_check=true tag=melodic-release ethercat_right_arm=[NUC right arm ethernet interface ID] arm_ip_right="192.168.1.1" ur_robot_type=ur10e
+```  
+
+Same as above but with ROS logs upload enabled for right arm and hand:
+
+```eval_rst
+.. prompt:: bash $
+
+    bash <(curl -Ls bit.ly/run-aurora) server_and_nuc_deploy --read-secure customer_key product=hand_e ethercat_interface=ens0s25 config_branch=shadow_12345 reinstall=true upgrade_check=true tag=melodic-release ethercat_right_arm=[NUC right arm ethernet interface ID] arm_ip_right="192.168.1.1" ur_robot_type=ur10e
+```  
+
+If you do not have an Nvidia graphics card, you can add nvidia_docker=false.
+
+You can also change reinstall=false in case you do not want to reinstall the docker image and container. When it finishes it will show if it was successful or not and will create desktop icons on your desktop that you can double-click to launch the hand container, save the log files from the active containers to your desktop and perform various actions on the hand (open, close and demo).
 
 ### Saving log files and uploading data to our server
-When running the one-liner, you will also notice a second icon named `Save logs` that is used to retrieve and copy all the available logs files from the active containers locally on your Desktop. This icon will create a folder that matches the active container's name and the next level will include the date and timestamp it was executed. When it starts, it will prompt you if you want to continue, as by pressing yes it will close all active containers. After pressing "yes", you will have to enter a description of the logging event and will start coping the bag files, logs and configuration files from the container and then exit. Otherwise, the window will close and no further action will happen. If you provided an upload key with the one-liner installation then the script will also upload your LOGS in compressed format to our server and notify the Shadow's software team about the upload. This will allow the team to fully investigate your issue and provide support where needed.
+When running the one-liner, you will also notice a second icon named `Shadow ROS Logs Saver and Uploader` that is used to retrieve and copy all the available logs files from the active containers locally on your Desktop. This icon will create a folder that matches the active container's name and the next level will include the date and timestamp it was executed. When it starts, it will prompt you if you want to continue, as by pressing yes it will close all active containers. After pressing "yes", you will have to enter a description of the logging event and will start coping the bag files, logs and configuration files from the container and then exit. Otherwise, the window will close and no further action will happen. If you provided an upload key with the one-liner installation then the script will also upload your LOGS in compressed format to our server and notify the Shadow's software team about the upload. This will allow the team to fully investigate your issue and provide support where needed.
 
 ### Starting the driver
 
 * **Shadow Arm and Hand Driver**
-  Launch the driver for the Shadow Hand using the desktop icon 'Shadow_Hand_Launcher' if the one-liner was executed using the ```launch_hand=true``` argument or at a terminal (in the container), type:
-
-  ```bash
-  $ roslaunch sr_ethercat_hand_config sr_system.launch
-  ```
+ Launch the driver for the Shadow Hand using the desktop icon 'Launch Shadow Right Hand' or 'Launch Shadow Left Hand' or 'Launch Shadow Bimanual Hands'.
 
 * **Lights in the hand**:
   When the ROS driver is running you should see the following lights on the Palm:
@@ -348,12 +374,16 @@ When running the one-liner, you will also notice a second icon named `Save logs`
 
 If you do not actually have a real hand and arm but would like to use them in simulation, then please run the following command:
 
-ROS Kinetic (Recommended):
+ROS Melodic (Recommended):
 ```bash
-$ bash <(curl -Ls bit.ly/run-aurora) docker_deploy product=hand_e sim_hand=true launch_hand=true
+$ bash <(curl -Ls bit.ly/run-aurora) server_and_nuc_deploy --limit 'all!dhcp' product=hand_e reinstall=true upgrade_check=true tag=melodic-release ur_robot_type=ur10e hand_side=right sim_icon=true
 ```
 
-You can also add reinstall=true true in case you want to reinstall the docker image and container. When it finishes it will show:
+If you do not have an Nvidia graphics card, you can add nvidia_docker=false.
+
+You can also change reinstall=false in case you do not want to reinstall the docker image and container. When it finishes it will show if it was successful or not and will create desktop icons on your desktop that you can double-click to launch the hand container, save the log files from the active containers to your desktop and perform various actions on the hand (open, close and demo).
+
+When it finishes it will show:
 ```bash
 Operation completed
 ```
@@ -361,7 +391,7 @@ and it will create two icons on your desktop that you can double-click to launch
 
 #### Starting a robot in simulation
 
-First you need to start the system container by either doble clicking the icon "Arm_Hand_Container" or running the following command:
+First you need to start the system container by either doble clicking the icon "Shadow Advanced Launchers/1 - Launch Server Container" or running the following command:
 ```bash
 $ docker start dexterous_hand_real_hw
 ```
@@ -390,9 +420,9 @@ Our code is split into different repositories:
 The robot commander provides a high level interface to easily control the different robots supported by Shadow Robot. It encapsulate the functionality provided by different ROS packages, specially the moveit_commander, enabling their access throughout a more simplified interface.
 
 There are three clases available:
-* [SrRobotCommander](https://github.com/shadow-robot/sr_interface/blob/kinetic-devel/sr_robot_commander/src/sr_robot_commander/sr_robot_commander.py): base class. Documentation can be found in the following [link](https://dexterous-hand.readthedocs.io/en/latest/user_guide/2_software_description.html#srrobotcommander).
-* [SrHandCommander](https://github.com/shadow-robot/sr_interface/blob/kinetic-devel/sr_robot_commander/src/sr_robot_commander/sr_hand_commander.py): hand management class. Documentation can be found in the following [link](https://dexterous-hand.readthedocs.io/en/latest/user_guide/2_software_description.html#srhandcommander).
-* [SrArmCommander](https://github.com/shadow-robot/sr_interface/blob/kinetic-devel/sr_robot_commander/src/sr_robot_commander/sr_arm_commander.py): hand management class
+* [SrRobotCommander](https://github.com/shadow-robot/sr_interface/blob/melodic-devel/sr_robot_commander/src/sr_robot_commander/sr_robot_commander.py): base class. Documentation can be found in the following [link](https://dexterous-hand.readthedocs.io/en/latest/user_guide/2_software_description.html#srrobotcommander).
+* [SrHandCommander](https://github.com/shadow-robot/sr_interface/blob/melodic-devel/sr_robot_commander/src/sr_robot_commander/sr_hand_commander.py): hand management class. Documentation can be found in the following [link](https://dexterous-hand.readthedocs.io/en/latest/user_guide/2_software_description.html#srhandcommander).
+* [SrArmCommander](https://github.com/shadow-robot/sr_interface/blob/melodic-devel/sr_robot_commander/src/sr_robot_commander/sr_arm_commander.py): hand management class
 
 #### SrArmCommander
 

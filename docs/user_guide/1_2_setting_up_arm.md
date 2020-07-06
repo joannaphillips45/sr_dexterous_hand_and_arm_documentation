@@ -132,7 +132,7 @@ If you want to use an existing calibration, a calibration tf can be broadcast by
 
 As before, for single marker setups, FRAME_NAME can be omitted and the default ra_calibration_marker will be used. The launch command can of course also be included in other launch files.
 
-## UR10 supporting firmware
+## UR supporting firmware
 
 In the following table, you can find the firmware version of the Universal Robot software and see if it has been tested with our software:
 
@@ -164,4 +164,4 @@ __ https://shadowrobot.atlassian.net/projects/SRC?selectedItem=com.atlassian.plu
 __ https://shadowrobot.atlassian.net/projects/SRC?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:com.kanoah.test-manager__main-project-page#!/testPlayer/SRC-R83
 ```
 
-Please make sure that when you test a new firmware version to update the file [known_good_firmware](https://github.com/shadow-robot/common_resources/blob/kinetic-devel/sr_firmware_checker/config/known_good_firmware.txt) with a PR adding the numbers as shown in the file.
+Please make sure that when you test a new firmware version to update the file [known_good_firmware](https://github.com/shadow-robot/common_resources/blob/melodic-devel/sr_firmware_checker/config/known_good_firmware.txt) with a PR adding the numbers as shown in the file.

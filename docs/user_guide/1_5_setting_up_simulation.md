@@ -8,14 +8,21 @@
 
 If you do not actually have a real hand and arm but would like to use them in simulation, then please run the following command:
 
-ROS Kinetic (Recommended):
+Running the one-liner requires that you can access bit.ly and raw.githubusercontent.com with your internet connection (bit.ly/run-aurora resolves to https://raw.githubusercontent.com/shadow-robot/aurora/master/bin/run-ansible.sh). If either of those is unreachable in your country, try using a VPN.
+
+ROS Melodic (Recommended):
 ```eval_rst
 .. prompt:: bash $
 
-    bash <(curl -Ls bit.ly/run-aurora) docker_deploy product=hand_e
+    bash <(curl -Ls bit.ly/run-aurora) server_and_nuc_deploy --limit 'all!dhcp' product=hand_e reinstall=true upgrade_check=true tag=melodic-release ur_robot_type=ur10e hand_side=right sim_icon=true
 ```
 
-You can also add reinstall=true in case you want to reinstall the docker image and container. When it finishes it will show:
+
+If you do not have an Nvidia graphics card, you can add nvidia_docker=false.
+
+You can also change reinstall=false in case you do not want to reinstall the docker image and container. When it finishes it will show if it was successful or not and will create desktop icons on your desktop that you can double-click to launch the hand container, save the log files from the active containers to your desktop and perform various actions on the hand (open, close and demo).
+
+When it finishes it will show:
 ```bash
 Operation completed
 ```
@@ -23,7 +30,7 @@ and it will create two icons on your desktop that you can double-click to launch
 
 ### Starting a robot in simulation
 
-First you need to start the system container by either double clicking the icon "Arm_Hand_Container" or running the following command:
+First you need to start the system container by either double clicking the icon "Shadow Advanced Launchers/1 - Launch Server Container" or running the following command:
 ```eval_rst
 .. prompt:: bash $
 
