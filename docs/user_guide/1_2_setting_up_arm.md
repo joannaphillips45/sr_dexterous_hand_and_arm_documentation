@@ -1,6 +1,6 @@
 # Setting up the arm
 
-1. Unpack the robot arm and the control box.
+1. Unpack the robot arm and the control box (Follow the instructions found on the UR manual included in the box)
 2. Mount the arm on the table. If you have a Shadow Stand or Table, the cable socket should point roughly towards the wire hole in the table. Place the base of the robot onto the mounting plate and add screws from the top. 
    ```eval_rst
    .. image:: ../img/ur_position_on_table.png
@@ -49,88 +49,22 @@ In order to use the robot with our driver you need to change the network setup o
    ```
 4. Press "Apply" when you finish.
 
-## Table-Arm Calibration Procedure
-Follow these steps if you have a table and a stylus provided by Shadow Robot. It should only be run once when the table is setup for the first time.
+## Make sure the mounting settings are correct
 
-1. The arm should be mounted on the table but without hand. First, mount the calibration stylus as shown below:
+In the UR pendant, go to "Installation" and then "Mounting" (Section 13.7 on the UR User Manual).
 
-   ```eval_rst
-   .. image:: ../img/arm_calibration_stylus.png
-     :width: 200
-     :align: center
-   ```
-
-2. Attach the ar_marker base to the table without the markers on
-   
-3. Type CTRL+ALT+T to open a terminal and start arm with command:
-    
-   ```eval_rst
-   .. prompt:: bash $
-
-       roslaunch sr_robot_launch sr_ur10arm_box.launch sim:=false
-   ```
-   
-4. Open another terminal (CTRL+ALT+T) and set the payload with the following command:
-   
-   ```eval_rst
-   .. prompt:: bash $ 
-   
-       rosservice call /ra_sr_ur_robot_hw/set_payload "mass_kg: 0.0 centre_of_mass_m: x: 0.0 y: 0.0 z: 0.0"
-   ```
-   
-5. Then, in the same terminal, change the control to `teach_mode` running the following:
-   ```eval_rst
-   .. prompt:: bash $
-   
-       rosservice call /teach_mode "teach_mode: 1 robot: 'right_arm'"
-   ```
-   Now you should be able to move the arm freely
-
-6. For each marker to be calibrated:
-   * Run:
-     ```eval_rst
-     .. prompt:: bash $
-     
-         roslaunch sr_workspace_calibrator calibrator.launch [calibration_frame:=FRAME_NAME]
-     ```
-     * For multi marker setups, `FRAME_NAME` should be unique. For a single marker setup (most cases), this can be omitted and the default name `ra_calibration_marker` will be used.
-     * Follow on screen instructions, touching carefully the tip of stylus into each hole. 
-       ```eval_rst
-       .. image:: ../img/arm_calibration_holes.png
-         :width: 300
-         :align: center
-       ```
-       
-       <br>
-     
-       ```eval_rst
-       .. Note:: Hole 0 is nearest to arm base and numbers increase ANTI CLOCKWISE from 0.
-       ```
-       
-   * Repeat 10 times for each hole (0,1,3).    
-     
-     ```eval_rst
-     .. Note:: Hole 2 (shown in red) does not get probed.
-     ```
-  
-7. The output of the process will be a yaml file named FRAME_NAME.yaml stored in sr_workspace_calibrator/config
-
-8. Finally to finish, change the control back running the following command:
-   ```eval_rst
-   .. prompt:: bash $
-       
-       rosservice call /teach_mode "teach_mode: 0 robot: 'right_arm'"
-   ```
-   Now you should not be able to move the arm
-
-If you want to use an existing calibration, a calibration tf can be broadcast by running:
 ```eval_rst
-.. prompt:: bash $
-    
-    roslaunch sr_workspace_calibrator calibration_tf.launch [calibration_frame:=FRAME_NAME]
+.. image:: ../img/ur_mounting_settings.png
 ```
 
-As before, for single marker setups, FRAME_NAME can be omitted and the default ra_calibration_marker will be used. The launch command can of course also be included in other launch files.
+This serves two purposes:
+1. Making the robot arm look right on the screen.
+2. Telling the controller about the direction of gravity.
+
+The controller uses an advanced dynamics model to give the robot arm smooth and precise motions, and to make the robot arm hold itself when in Freedrive mode. For
+this reason, it is very important that the mounting of the robot arm be set correctly.
+
+The default is that the robot arm is mounted on a flat table which is our case, in which case no change is needed on this screen. Please verify that this is the case. In case you want to mount the robot on the ceiling, a wall or at an agle, change this using the push-buttons.
 
 ## UR supporting firmware
 
