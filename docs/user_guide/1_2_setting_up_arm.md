@@ -66,6 +66,62 @@ this reason, it is very important that the mounting of the robot arm be set corr
 
 The default is that the robot arm is mounted on a flat table which is our case, in which case no change is needed on this screen. Please verify that this is the case. In case you want to mount the robot on the ceiling, a wall or at an agle, change this using the push-buttons.
 
+## UR10e configuration - Set remote control mode
+
+On the UR arm e-Series the robot has to be in remote control mode to be used in headless mode. This has to be switched from the Teach-Pendant in the following way:
+
+1. Turn on the Robot via the Teach-Pendant and then, click on the menu on the right corner of the top bar:
+
+```eval_rst
+.. image:: ../img/ur10e1.jpeg
+```
+
+2. In the drop down menu, select ‘Settings’:
+
+```eval_rst
+.. image:: ../img/ur10e2.jpeg
+```
+
+3. On the left side menu select ‘Systems’ and then ‘Remote Control’:
+
+```eval_rst
+.. image:: ../img/ur10e3.jpeg
+```
+
+4. In the pop-up screen select ‘Enable’:
+
+```eval_rst
+.. image:: ../img/ur10e4.jpeg
+```
+
+5. After step 4 a new small icon called ‘Local’ will appear on the right side of the top bar menu:
+
+```eval_rst
+.. image:: ../img/ur10e5.jpeg
+```
+
+6. Click on the Local icon and in the drop down menu select Remote Control:
+
+```eval_rst
+.. image:: ../img/ur10e6.jpeg
+```
+
+7. The top bar should look like the picture below:
+
+```eval_rst
+.. image:: ../img/ur10e7.jpeg
+```
+
+### Important Remark
+
+Steps 1-5 needs to be done only once. After these steps are executed, the robot can quickly be switched between Local and Remote Control by using the icon and the drop-down menu shown in step 6.
+
+The change is persistent with rebooting. 
+
+When Remote Control mode is active the UR10e can only be controlled via the Remote machine (Laptop). In order to use the local commands on the pendant (e.g. free-drive mode), the mode needs to be switched back to Local Control.
+
+In order to do this, click on the Remote Control icon on the top right bar and in the pop-up menu select Local Control.
+
 ## UR supporting firmware
 
 In the following table, you can find the firmware version of the Universal Robot software and see if it has been tested with our software:
